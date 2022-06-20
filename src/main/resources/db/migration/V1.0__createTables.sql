@@ -1,5 +1,5 @@
 create table book (
-    id int4 not null,
+    id SERIAL,
     author varchar(255) not null,
     title varchar(255) not null,
     year int4 not null,
@@ -7,7 +7,7 @@ create table book (
 );
 
 create table bookstore (
-    id int4 not null,
+    id SERIAL,
     address varchar(255) not null,
     name varchar(255) not null,
     owner varchar(255) not null,
@@ -15,8 +15,8 @@ create table bookstore (
 );
 
 create table copy (
-    book_id int4 not null,
-    bookstore_id int4 not null,
+    book_id SERIAL,
+    bookstore_id SERIAL,
     copies int4 not null,
     soldcopies int4 not null,
     primary key (book_id, bookstore_id)
