@@ -69,13 +69,6 @@ public class Book {
         this.year = year;
     }
 
-    public Set<Copy> getCopies() {
-        return this.copies;
-    }
-
-    public void setCopies(Set<Copy> copies) {
-        this.copies = copies;
-    }
 
     public Book id(int id) {
         setId(id);
@@ -97,10 +90,7 @@ public class Book {
         return this;
     }
 
-    public Book copies(Set<Copy> copies) {
-        setCopies(copies);
-        return this;
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -111,12 +101,12 @@ public class Book {
         }
         Book book = (Book) o;
         return id == book.id && Objects.equals(title, book.title) && Objects.equals(author, book.author)
-                && year == book.year && Objects.equals(copies, book.copies);
+                && year == book.year;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author, year, copies);
+        return Objects.hash(id, title, author, year);
     }
 
     @Override
@@ -126,7 +116,6 @@ public class Book {
                 ", title='" + getTitle() + "'" +
                 ", author='" + getAuthor() + "'" +
                 ", year='" + getYear() + "'" +
-                ", copies='" + getCopies() + "'" +
                 "}";
     }
 

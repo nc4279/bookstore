@@ -69,13 +69,6 @@ public class Bookstore {
         this.address = address;
     }
 
-    public Set<Copy> getCopies() {
-        return this.copies;
-    }
-
-    public void setCopies(Set<Copy> copies) {
-        this.copies = copies;
-    }
 
     public Bookstore id(int id) {
         setId(id);
@@ -97,11 +90,6 @@ public class Bookstore {
         return this;
     }
 
-    public Bookstore copies(Set<Copy> copies) {
-        setCopies(copies);
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -111,12 +99,12 @@ public class Bookstore {
         }
         Bookstore bookstore = (Bookstore) o;
         return id == bookstore.id && Objects.equals(name, bookstore.name) && Objects.equals(owner, bookstore.owner)
-                && Objects.equals(address, bookstore.address) && Objects.equals(copies, bookstore.copies);
+                && Objects.equals(address, bookstore.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, owner, address, copies);
+        return Objects.hash(id, name, owner, address);
     }
 
     @Override
@@ -126,7 +114,6 @@ public class Bookstore {
                 ", name='" + getName() + "'" +
                 ", owner='" + getOwner() + "'" +
                 ", address='" + getAddress() + "'" +
-                ", copies='" + getCopies() + "'" +
                 "}";
     }
 
