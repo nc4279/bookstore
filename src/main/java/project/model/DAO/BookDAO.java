@@ -9,5 +9,5 @@ import project.entity.Book;
 @ApplicationScoped
 @Transactional
 public class BookDAO implements PanacheRepository<Book>{
-    
+
 }

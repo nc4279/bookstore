@@ -15,14 +15,3 @@ VALUES ('Hot Summer Night','ALGER SILVA',2016,30, 225),
        ('The Call of the Forsaken','NIGEL CLARK',2019, 44.99, 452),
        ('The Translucent Shack','NICHOLAS MARSH',2018, 23, 165),
        ('Tried for Death','ALGER SILVA',2019, 39.99, 521);
-
-insert into copy
-VALUES (1,5, 100, 12),
-       (1,6, 200, 123),
-       (9,6, 22, 6),
-       (7, 6, 45, 22),
-       (5, 6, 43, 11),
-       (7, 5, 30, 20),
-       (2, 5, 66, 32);
-
-
