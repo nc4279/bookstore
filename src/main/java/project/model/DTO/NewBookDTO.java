@@ -2,18 +2,23 @@ package project.model.DTO;
 
 import java.util.Objects;
 
-public class BookWithLoginDTO {
-    private String title;
-    private String author;
-    private int year;
-    private int page;
-    private double price;
+import javax.validation.constraints.NotEmpty;
+
+import io.smallrye.common.constraint.NotNull;
+
+public class NewBookDTO {
+    
+    @NotEmpty private String title;
+    @NotEmpty private String author;
+    @NotEmpty private int year;
+    @NotEmpty private int page;
+    @NotNull private double price;
 
 
-    public BookWithLoginDTO() {
+    public NewBookDTO() {
     }
 
-    public BookWithLoginDTO(String title, String author, int year, int page, double price) {
+    public NewBookDTO(String title, String author, int year, int page, double price) {
         this.title = title;
         this.author = author;
         this.year = year;
@@ -61,27 +66,27 @@ public class BookWithLoginDTO {
         this.price = price;
     }
 
-    public BookWithLoginDTO title(String title) {
+    public NewBookDTO title(String title) {
         setTitle(title);
         return this;
     }
 
-    public BookWithLoginDTO author(String author) {
+    public NewBookDTO author(String author) {
         setAuthor(author);
         return this;
     }
 
-    public BookWithLoginDTO year(int year) {
+    public NewBookDTO year(int year) {
         setYear(year);
         return this;
     }
 
-    public BookWithLoginDTO page(int page) {
+    public NewBookDTO page(int page) {
         setPage(page);
         return this;
     }
 
-    public BookWithLoginDTO price(double price) {
+    public NewBookDTO price(double price) {
         setPrice(price);
         return this;
     }
@@ -90,11 +95,11 @@ public class BookWithLoginDTO {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof BookWithLoginDTO)) {
+        if (!(o instanceof NewBookDTO)) {
             return false;
         }
-        BookWithLoginDTO bookWithLoginDTO = (BookWithLoginDTO) o;
-        return Objects.equals(title, bookWithLoginDTO.title) && Objects.equals(author, bookWithLoginDTO.author) && year == bookWithLoginDTO.year && page == bookWithLoginDTO.page && price == bookWithLoginDTO.price;
+        NewBookDTO newBookDTO = (NewBookDTO) o;
+        return Objects.equals(title, newBookDTO.title) && Objects.equals(author, newBookDTO.author) && year == newBookDTO.year && page == newBookDTO.page && price == newBookDTO.price;
     }
 
     @Override

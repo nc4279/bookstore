@@ -2,7 +2,7 @@ package project.model.DTO;
 
 import java.util.Objects;
 
-public class BookWithLoginAdminDTO {
+public class BookForAdminDTO {
 
     private int id;
     private String title;
@@ -12,10 +12,10 @@ public class BookWithLoginAdminDTO {
     private int page;
 
 
-    public BookWithLoginAdminDTO() {
+    public BookForAdminDTO() {
     }
 
-    public BookWithLoginAdminDTO(int id, String title, String author, int year, double price, int page) {
+    public BookForAdminDTO(int id, String title, String author, int year, double price, int page) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -72,32 +72,32 @@ public class BookWithLoginAdminDTO {
         this.page = page;
     }
 
-    public BookWithLoginAdminDTO id(int id) {
+    public BookForAdminDTO id(int id) {
         setId(id);
         return this;
     }
 
-    public BookWithLoginAdminDTO title(String title) {
+    public BookForAdminDTO title(String title) {
         setTitle(title);
         return this;
     }
 
-    public BookWithLoginAdminDTO author(String author) {
+    public BookForAdminDTO author(String author) {
         setAuthor(author);
         return this;
     }
 
-    public BookWithLoginAdminDTO year(int year) {
+    public BookForAdminDTO year(int year) {
         setYear(year);
         return this;
     }
 
-    public BookWithLoginAdminDTO price(double price) {
+    public BookForAdminDTO price(double price) {
         setPrice(price);
         return this;
     }
 
-    public BookWithLoginAdminDTO page(int page) {
+    public BookForAdminDTO page(int page) {
         setPage(page);
         return this;
     }
@@ -106,10 +106,10 @@ public class BookWithLoginAdminDTO {
     public boolean equals(Object o) {
         if (o == this)
             return true;
-        if (!(o instanceof BookWithLoginAdminDTO)) {
+        if (!(o instanceof BookForAdminDTO)) {
             return false;
         }
-        BookWithLoginAdminDTO bookWithLoginAdminDTO = (BookWithLoginAdminDTO) o;
+        BookForAdminDTO bookWithLoginAdminDTO = (BookForAdminDTO) o;
         return id == bookWithLoginAdminDTO.id && Objects.equals(title, bookWithLoginAdminDTO.title) && Objects.equals(author, bookWithLoginAdminDTO.author) && year == bookWithLoginAdminDTO.year && price == bookWithLoginAdminDTO.price && page == bookWithLoginAdminDTO.page;
     }
 
