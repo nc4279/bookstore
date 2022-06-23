@@ -4,7 +4,7 @@ values ('Main street, England', 'Mistic Bookstore', 'Nina'),
 
 insert into book (title,author, year, price, page)
 VALUES ('Hot Summer Night','ALGER SILVA',2016,30, 225),
-       ('Braid of Gold','ALGER SILVA', 2022, null, 342),
+       ('Braid of Gold','ALGER SILVA', 2022, 0.00, 342),
        ('Mystery of the Ugly Stranger','ALGER SILVA',2021, 22.99, 365),
        ('Spare Parts','NINA WATERS',2022, 50, 333),
        ('The Descendant of Legend','NINA WATERS',2010, 21.99, 265),
