@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -24,6 +25,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.modelmapper.ModelMapper;
 
+import io.quarkus.logging.Log;
 import io.quarkus.security.identity.SecurityIdentity;
 import project.DAO.BookDAO;
 import project.DAO.BookstoreDAO;
@@ -88,27 +90,35 @@ public class BookstoreResource {
             @APIResponse(responseCode = "403", description = "Not Allowed", content = @Content(mediaType = "application/json")),
             @APIResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json"))
     })
-    @Operation(summary = "Get all books from user's bookstore", description = "Only login users can access this endpoint")
+    @Operation(summary = "Get all books from user's bookstore", description = "Only login users can access this endpoint, data info depends on user's role")
     public Response getUsersBooks() {
-        //String bookstore = accessToken.getClaim("poslovniPartner");
+        //int bookstoreID = accessToken.getClaim("bookstore");
+        String author = accessToken.getClaim("author");
+        String group = accessToken.getClaim("group").toString().substring(3, 9);
+        Log.info("group name -> "+group);
+        //Log.info("name -> "+author);
+        //Log.info("group -> "+ accessToken.getClaim("group"));
         //identity.getRoles().contains("manager") za role
+        // if(accessToken.getGroups().contains("writer")){
+        //     return Response.ok(bookDAO.getBooksForAuthor(bookstoreID, author)).build();
+        // }
         return Response.ok().build();
     }
 
-    @GET
-    @Path("mybooks")
-    @APIResponses(value = {
-            @APIResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class))),
-            @APIResponse(responseCode = "401", description = "Not Authorized", content = @Content(mediaType = "application/json")),
-            @APIResponse(responseCode = "403", description = "Not Allowed", content = @Content(mediaType = "application/json")),
-            @APIResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json"))
-    })
-    @Operation(summary = "Get all books from author in bookstore", description = "Only login users with group 'writer' can access this endpoint")
-    public Response getWritersBooks(@QueryParam("bookstoreID") int bookstoreID, @QueryParam("author") String author) {
-        //String bookstore = accessToken.getClaim("poslovniPartner");
-        //identity.getRoles().contains("manager") za role
-        return Response.ok(bookDAO.getBooksForAuthor(bookstoreID, author)).build();
-    }
+    // @GET
+    // @Path("mybooks")
+    // @APIResponses(value = {
+    //         @APIResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class))),
+    //         @APIResponse(responseCode = "401", description = "Not Authorized", content = @Content(mediaType = "application/json")),
+    //         @APIResponse(responseCode = "403", description = "Not Allowed", content = @Content(mediaType = "application/json")),
+    //         @APIResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json"))
+    // })
+    // @Operation(summary = "Get all books from author in bookstore", description = "Only login users with group 'writer' can access this endpoint")
+    // public Response getWritersBooks(@QueryParam("bookstoreID") int bookstoreID, @QueryParam("author") String author) {
+    //     //String bookstore = accessToken.getClaim("poslovniPartner");
+    //     //identity.getRoles().contains("manager") za role
+    //     return Response.ok(bookDAO.getBooksForAuthor(bookstoreID, author)).build();
+    // }
 
     @POST
     @RolesAllowed({"admin", "superadmin" })
@@ -128,7 +138,7 @@ public class BookstoreResource {
         return Response.ok().build();
     }
 
-    @POST
+    @DELETE
     @RolesAllowed("superadmin")
     @Path("delete")
     @APIResponses(value = {
