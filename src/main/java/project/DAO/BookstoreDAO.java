@@ -1,4 +1,4 @@
-package project.model.DAO;
+package project.DAO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;

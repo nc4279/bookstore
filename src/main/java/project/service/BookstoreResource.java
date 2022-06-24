@@ -25,10 +25,10 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.modelmapper.ModelMapper;
 
 import io.quarkus.security.identity.SecurityIdentity;
+import project.DAO.BookDAO;
+import project.DAO.BookstoreDAO;
+import project.DAO.CopyDAO;
 import project.entity.Book;
-import project.model.DAO.BookDAO;
-import project.model.DAO.BookstoreDAO;
-import project.model.DAO.CopyDAO;
 import project.model.DTO.BookForPublicDTO;
 import project.model.DTO.NewBookDTO;
 

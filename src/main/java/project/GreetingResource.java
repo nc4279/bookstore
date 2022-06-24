@@ -6,7 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import project.model.DAO.BookDAO;
+import project.DAO.BookDAO;
 
 @Path("/hello")
 public class GreetingResource {
