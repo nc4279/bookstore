@@ -18,6 +18,8 @@ import org.modelmapper.ModelMapper;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import project.entity.Book;
 import project.entity.Book_;
+import project.entity.Bookstore;
+import project.entity.Bookstore_;
 import project.entity.Copy;
 import project.entity.Copy_;
 import project.model.DTO.BookForUserDTO;
@@ -40,7 +42,7 @@ public class BookDAO implements PanacheRepository<Book> {
 
     }
 
-    public List<BookForWriterDTO> getBooksForAuthor(int bookstoreID, String author) {
+    public List<BookForWriterDTO> getBooksForAuthor( String author) {
 
         ModelMapper modelMapper = new ModelMapper();
 
@@ -48,9 +50,11 @@ public class BookDAO implements PanacheRepository<Book> {
         CriteriaQuery<Tuple> cq = cb.createQuery(Tuple.class);
         Root<Book> book = cq.from(Book.class);
         Join<Book, Copy> copy = book.join(Book_.COPIES, JoinType.INNER);
-        cq.multiselect(copy.get(Copy_.BOOK), copy.get(Copy_.COPIES), copy.get(Copy_.SOLDCOPIES));
+        Join<Copy, Bookstore> bookstore = copy.join(Copy_.BOOKSTORE, JoinType.INNER);
 
-        cq.where(cb.and(cb.equal(book.get(Book_.AUTHOR), author), cb.equal(copy.get(Copy_.BOOKSTORE), bookstoreID)));
+        cq.multiselect(copy.get(Copy_.BOOK), copy.get(Copy_.COPIES), copy.get(Copy_.SOLDCOPIES), bookstore.get(Bookstore_.NAME));
+
+        cq.where(cb.equal(book.get(Book_.AUTHOR), author));
         TypedQuery<Tuple> q = getEntityManager().createQuery(cq);
 
         List<BookForWriterDTO> newBooks = new ArrayList<>();
@@ -59,6 +63,7 @@ public class BookDAO implements PanacheRepository<Book> {
             BookForWriterDTO mybook = modelMapper.map(bookDTO, BookForWriterDTO.class);
             mybook.setCopies(Integer.parseInt(iterable_element.get(1).toString()));
             mybook.setSoldcopies(Integer.parseInt(iterable_element.get(2).toString()));
+            mybook.setBookstore(iterable_element.get(3).toString());
             newBooks.add(mybook);
             // Log.info(" BOOK: " + iterable_element.get(0));
             // Log.info(" COPIES: " + iterable_element.get(1));
@@ -70,4 +75,9 @@ public class BookDAO implements PanacheRepository<Book> {
         return newBooks;
     }
 
+    public void deleteBook(Book book)
+    {
+        book = getEntityManager().merge(book);
+        getEntityManager().remove(book);
+    }
 }

@@ -11,12 +11,13 @@ public class BookForWriterDTO {
     private int page;
     private int copies;
     private int soldcopies;
-
+    private String bookstore;
 
     public BookForWriterDTO() {
     }
 
-    public BookForWriterDTO(String title, String author, int year, double price, int page, int copies, int soldcopies) {
+    public BookForWriterDTO(String title, String author, int year, double price, int page, int copies, int soldcopies,
+            String bookstore) {
         this.title = title;
         this.author = author;
         this.year = year;
@@ -24,6 +25,7 @@ public class BookForWriterDTO {
         this.page = page;
         this.copies = copies;
         this.soldcopies = soldcopies;
+        this.bookstore = bookstore;
     }
 
     public String getTitle() {
@@ -82,6 +84,14 @@ public class BookForWriterDTO {
         this.soldcopies = soldcopies;
     }
 
+    public String getBookstore() {
+        return this.bookstore;
+    }
+
+    public void setBookstore(String bookstore) {
+        this.bookstore = bookstore;
+    }
+
     public BookForWriterDTO title(String title) {
         setTitle(title);
         return this;
@@ -117,6 +127,11 @@ public class BookForWriterDTO {
         return this;
     }
 
+    public BookForWriterDTO bookstore(String bookstore) {
+        setBookstore(bookstore);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -125,25 +140,29 @@ public class BookForWriterDTO {
             return false;
         }
         BookForWriterDTO bookForWriterDTO = (BookForWriterDTO) o;
-        return Objects.equals(title, bookForWriterDTO.title) && Objects.equals(author, bookForWriterDTO.author) && year == bookForWriterDTO.year && price == bookForWriterDTO.price && page == bookForWriterDTO.page && copies == bookForWriterDTO.copies && soldcopies == bookForWriterDTO.soldcopies;
+        return Objects.equals(title, bookForWriterDTO.title) && Objects.equals(author, bookForWriterDTO.author)
+                && year == bookForWriterDTO.year && price == bookForWriterDTO.price && page == bookForWriterDTO.page
+                && copies == bookForWriterDTO.copies && soldcopies == bookForWriterDTO.soldcopies
+                && Objects.equals(bookstore, bookForWriterDTO.bookstore);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, author, year, price, page, copies, soldcopies);
+        return Objects.hash(title, author, year, price, page, copies, soldcopies, bookstore);
     }
 
     @Override
     public String toString() {
         return "{" +
-            " title='" + getTitle() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", year='" + getYear() + "'" +
-            ", price='" + getPrice() + "'" +
-            ", page='" + getPage() + "'" +
-            ", copies='" + getCopies() + "'" +
-            ", soldcopies='" + getSoldcopies() + "'" +
-            "}";
+                " title='" + getTitle() + "'" +
+                ", author='" + getAuthor() + "'" +
+                ", year='" + getYear() + "'" +
+                ", price='" + getPrice() + "'" +
+                ", page='" + getPage() + "'" +
+                ", copies='" + getCopies() + "'" +
+                ", soldcopies='" + getSoldcopies() + "'" +
+                ", bookstore='" + getBookstore() + "'" +
+                "}";
     }
 
 }

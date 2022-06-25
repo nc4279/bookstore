@@ -13,17 +13,19 @@ public class NewBookDTO {
     @NotEmpty private int year;
     @NotEmpty private int page;
     @NotNull private double price;
+    @NotNull private int copies;
 
 
     public NewBookDTO() {
     }
 
-    public NewBookDTO(String title, String author, int year, int page, double price) {
+    public NewBookDTO(String title, String author, int year, int page, double price, int copies) {
         this.title = title;
         this.author = author;
         this.year = year;
         this.page = page;
         this.price = price;
+        this.copies = copies;
     }
 
     public String getTitle() {
@@ -66,6 +68,14 @@ public class NewBookDTO {
         this.price = price;
     }
 
+    public int getCopies() {
+        return this.copies;
+    }
+
+    public void setCopies(int copies) {
+        this.copies = copies;
+    }
+
     public NewBookDTO title(String title) {
         setTitle(title);
         return this;
@@ -91,6 +101,11 @@ public class NewBookDTO {
         return this;
     }
 
+    public NewBookDTO copies(int copies) {
+        setCopies(copies);
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -99,12 +114,12 @@ public class NewBookDTO {
             return false;
         }
         NewBookDTO newBookDTO = (NewBookDTO) o;
-        return Objects.equals(title, newBookDTO.title) && Objects.equals(author, newBookDTO.author) && year == newBookDTO.year && page == newBookDTO.page && price == newBookDTO.price;
+        return Objects.equals(title, newBookDTO.title) && Objects.equals(author, newBookDTO.author) && year == newBookDTO.year && page == newBookDTO.page && price == newBookDTO.price && copies == newBookDTO.copies;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, author, year, page, price);
+        return Objects.hash(title, author, year, page, price, copies);
     }
 
     @Override
@@ -115,7 +130,9 @@ public class NewBookDTO {
             ", year='" + getYear() + "'" +
             ", page='" + getPage() + "'" +
             ", price='" + getPrice() + "'" +
+            ", copies='" + getCopies() + "'" +
             "}";
     }
+
 
 }
