@@ -64,7 +64,7 @@ public class BookstoreResource {
     @GET
     @Path("mistic/books")
     @APIResponses(value = {
-            @APIResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class))),
+            @APIResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BookForPublicDTO.class))),
             @APIResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json"))
     })
     @Operation(summary = "Get all books from bookstore Mistic", description = "Everyone can access this endpoint")
@@ -78,7 +78,7 @@ public class BookstoreResource {
     @GET
     @Path("bistical/books")
     @APIResponses(value = {
-            @APIResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Book.class))),
+            @APIResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BookForPublicDTO.class))),
             @APIResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json"))
     })
     @Operation(summary = "Get all books from bookstore Bistical", description = "Everyone can access this endpoint")
@@ -219,10 +219,10 @@ public class BookstoreResource {
                     bookDAO.deleteBook(book);
                     return Response.ok().build();
                 } else {
-                    return Response.status(Status.CONFLICT).build();
+                    return Response.status(Status.NO_CONTENT).build();
                 }
             } else {
-                return Response.status(Status.CONFLICT).build();
+                return Response.status(Status.NO_CONTENT).build();
             }
 
         } else {
