@@ -9,7 +9,6 @@ public class BookForUserDTO {
     private int page;
     private double price;
 
-
     public BookForUserDTO() {
     }
 
@@ -94,7 +93,8 @@ public class BookForUserDTO {
             return false;
         }
         BookForUserDTO bookWithLoginDTO = (BookForUserDTO) o;
-        return Objects.equals(title, bookWithLoginDTO.title) && Objects.equals(author, bookWithLoginDTO.author) && year == bookWithLoginDTO.year && page == bookWithLoginDTO.page && price == bookWithLoginDTO.price;
+        return Objects.equals(title, bookWithLoginDTO.title) && Objects.equals(author, bookWithLoginDTO.author)
+                && year == bookWithLoginDTO.year && page == bookWithLoginDTO.page && price == bookWithLoginDTO.price;
     }
 
     @Override
@@ -105,12 +105,12 @@ public class BookForUserDTO {
     @Override
     public String toString() {
         return "{" +
-            " title='" + getTitle() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", year='" + getYear() + "'" +
-            ", page='" + getPage() + "'" +
-            ", price='" + getPrice() + "'" +
-            "}";
+                " title='" + getTitle() + "'" +
+                ", author='" + getAuthor() + "'" +
+                ", year='" + getYear() + "'" +
+                ", page='" + getPage() + "'" +
+                ", price='" + getPrice() + "'" +
+                "}";
     }
 
 }

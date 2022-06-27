@@ -14,7 +14,6 @@ public class CompositeKey implements Serializable {
     @Column(name = "book_id")
     int bookId;
 
-
     public CompositeKey() {
     }
 
@@ -68,9 +67,9 @@ public class CompositeKey implements Serializable {
     @Override
     public String toString() {
         return "{" +
-            " bookstoreId='" + getBookstoreId() + "'" +
-            ", bookId='" + getBookId() + "'" +
-            "}";
+                " bookstoreId='" + getBookstoreId() + "'" +
+                ", bookId='" + getBookId() + "'" +
+                "}";
     }
 
 }

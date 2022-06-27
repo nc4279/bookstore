@@ -42,7 +42,7 @@ public class BookDAO implements PanacheRepository<Book> {
 
     }
 
-    public List<BookForWriterDTO> getBooksForAuthor( String author) {
+    public List<BookForWriterDTO> getBooksForAuthor(String author) {
 
         ModelMapper modelMapper = new ModelMapper();
 
@@ -52,7 +52,8 @@ public class BookDAO implements PanacheRepository<Book> {
         Join<Book, Copy> copy = book.join(Book_.COPIES, JoinType.INNER);
         Join<Copy, Bookstore> bookstore = copy.join(Copy_.BOOKSTORE, JoinType.INNER);
 
-        cq.multiselect(copy.get(Copy_.BOOK), copy.get(Copy_.COPIES), copy.get(Copy_.SOLDCOPIES), bookstore.get(Bookstore_.NAME));
+        cq.multiselect(copy.get(Copy_.BOOK), copy.get(Copy_.COPIES), copy.get(Copy_.SOLDCOPIES),
+                bookstore.get(Bookstore_.NAME));
 
         cq.where(cb.equal(book.get(Book_.AUTHOR), author));
         TypedQuery<Tuple> q = getEntityManager().createQuery(cq);
@@ -75,8 +76,7 @@ public class BookDAO implements PanacheRepository<Book> {
         return newBooks;
     }
 
-    public void deleteBook(Book book)
-    {
+    public void deleteBook(Book book) {
         book = getEntityManager().merge(book);
         getEntityManager().remove(book);
     }

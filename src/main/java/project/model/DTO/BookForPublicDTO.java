@@ -3,12 +3,11 @@ package project.model.DTO;
 import java.util.Objects;
 
 public class BookForPublicDTO {
-    
+
     private String title;
     private String author;
     private int year;
     private int page;
-
 
     public BookForPublicDTO() {
     }
@@ -80,7 +79,8 @@ public class BookForPublicDTO {
             return false;
         }
         BookForPublicDTO bookWithoutLoginDTO = (BookForPublicDTO) o;
-        return Objects.equals(title, bookWithoutLoginDTO.title) && Objects.equals(author, bookWithoutLoginDTO.author) && year == bookWithoutLoginDTO.year && page == bookWithoutLoginDTO.page;
+        return Objects.equals(title, bookWithoutLoginDTO.title) && Objects.equals(author, bookWithoutLoginDTO.author)
+                && year == bookWithoutLoginDTO.year && page == bookWithoutLoginDTO.page;
     }
 
     @Override
@@ -91,11 +91,11 @@ public class BookForPublicDTO {
     @Override
     public String toString() {
         return "{" +
-            " title='" + getTitle() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", year='" + getYear() + "'" +
-            ", page='" + getPage() + "'" +
-            "}";
+                " title='" + getTitle() + "'" +
+                ", author='" + getAuthor() + "'" +
+                ", year='" + getYear() + "'" +
+                ", page='" + getPage() + "'" +
+                "}";
     }
 
 }

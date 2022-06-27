@@ -25,7 +25,7 @@ public class Book {
     @Column(nullable = false)
     private int year;
     @Column(nullable = true)
-    private double price;
+    private Double price;
     @Column(nullable = false)
     private int page;
 
@@ -35,7 +35,6 @@ public class Book {
     public Book() {
     }
 
- 
     public Book(int id, String title, String author, int year, double price, int page) {
         this.id = id;
         this.title = title;
@@ -61,7 +60,6 @@ public class Book {
         this.page = page;
     }
 
-
     public Book price(double price) {
         setPrice(price);
         return this;
@@ -71,7 +69,6 @@ public class Book {
         setPage(page);
         return this;
     }
-
 
     public int getId() {
         return this.id;
@@ -105,7 +102,6 @@ public class Book {
         this.year = year;
     }
 
-
     public Book id(int id) {
         setId(id);
         return this;
@@ -125,7 +121,6 @@ public class Book {
         setYear(year);
         return this;
     }
- 
 
     @Override
     public boolean equals(Object o) {
@@ -135,7 +130,8 @@ public class Book {
             return false;
         }
         Book book = (Book) o;
-        return id == book.id && Objects.equals(title, book.title) && Objects.equals(author, book.author) && year == book.year && price == book.price && page == book.page;
+        return id == book.id && Objects.equals(title, book.title) && Objects.equals(author, book.author)
+                && year == book.year && price == book.price && page == book.page;
     }
 
     @Override
@@ -146,14 +142,13 @@ public class Book {
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", year='" + getYear() + "'" +
-            ", price='" + getPrice() + "'" +
-            ", page='" + getPage() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", title='" + getTitle() + "'" +
+                ", author='" + getAuthor() + "'" +
+                ", year='" + getYear() + "'" +
+                ", price='" + getPrice() + "'" +
+                ", page='" + getPage() + "'" +
+                "}";
     }
-
 
 }

@@ -8,6 +8,6 @@ import project.entity.Bookstore;
 
 @ApplicationScoped
 @Transactional
-public class BookstoreDAO implements PanacheRepository<Bookstore>{
-    
+public class BookstoreDAO implements PanacheRepository<Bookstore> {
+
 }

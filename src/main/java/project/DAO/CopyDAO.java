@@ -10,15 +10,13 @@ import project.entity.Copy;
 @ApplicationScoped
 @Transactional
 public class CopyDAO implements PanacheRepository<Copy> {
-    
-    public void delete(CompositeKey key)
-    {
+
+    public void delete(CompositeKey key) {
         Copy copy = getEntityManager().merge(find("id", key).firstResult());
         getEntityManager().remove(copy);
     }
 
-    public void merge(Copy copy)
-    { 
+    public void merge(Copy copy) {
         getEntityManager().merge(copy);
     }
 }

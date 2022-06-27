@@ -7,14 +7,19 @@ import javax.validation.constraints.NotEmpty;
 import io.smallrye.common.constraint.NotNull;
 
 public class NewBookDTO {
-    
-    @NotEmpty private String title;
-    @NotEmpty private String author;
-    @NotEmpty private int year;
-    @NotEmpty private int page;
-    @NotNull private double price;
-    @NotNull private int copies;
 
+    @NotEmpty
+    private String title;
+    @NotEmpty
+    private String author;
+    @NotEmpty
+    private int year;
+    @NotEmpty
+    private int page;
+    @NotNull
+    private double price;
+    @NotNull
+    private int copies;
 
     public NewBookDTO() {
     }
@@ -114,7 +119,9 @@ public class NewBookDTO {
             return false;
         }
         NewBookDTO newBookDTO = (NewBookDTO) o;
-        return Objects.equals(title, newBookDTO.title) && Objects.equals(author, newBookDTO.author) && year == newBookDTO.year && page == newBookDTO.page && price == newBookDTO.price && copies == newBookDTO.copies;
+        return Objects.equals(title, newBookDTO.title) && Objects.equals(author, newBookDTO.author)
+                && year == newBookDTO.year && page == newBookDTO.page && price == newBookDTO.price
+                && copies == newBookDTO.copies;
     }
 
     @Override
@@ -125,14 +132,13 @@ public class NewBookDTO {
     @Override
     public String toString() {
         return "{" +
-            " title='" + getTitle() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", year='" + getYear() + "'" +
-            ", page='" + getPage() + "'" +
-            ", price='" + getPrice() + "'" +
-            ", copies='" + getCopies() + "'" +
-            "}";
+                " title='" + getTitle() + "'" +
+                ", author='" + getAuthor() + "'" +
+                ", year='" + getYear() + "'" +
+                ", page='" + getPage() + "'" +
+                ", price='" + getPrice() + "'" +
+                ", copies='" + getCopies() + "'" +
+                "}";
     }
-
 
 }

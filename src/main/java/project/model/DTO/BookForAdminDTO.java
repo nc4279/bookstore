@@ -11,7 +11,6 @@ public class BookForAdminDTO {
     private double price;
     private int page;
 
-
     public BookForAdminDTO() {
     }
 
@@ -110,7 +109,9 @@ public class BookForAdminDTO {
             return false;
         }
         BookForAdminDTO bookWithLoginAdminDTO = (BookForAdminDTO) o;
-        return id == bookWithLoginAdminDTO.id && Objects.equals(title, bookWithLoginAdminDTO.title) && Objects.equals(author, bookWithLoginAdminDTO.author) && year == bookWithLoginAdminDTO.year && price == bookWithLoginAdminDTO.price && page == bookWithLoginAdminDTO.page;
+        return id == bookWithLoginAdminDTO.id && Objects.equals(title, bookWithLoginAdminDTO.title)
+                && Objects.equals(author, bookWithLoginAdminDTO.author) && year == bookWithLoginAdminDTO.year
+                && price == bookWithLoginAdminDTO.price && page == bookWithLoginAdminDTO.page;
     }
 
     @Override
@@ -121,13 +122,13 @@ public class BookForAdminDTO {
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
-            ", title='" + getTitle() + "'" +
-            ", author='" + getAuthor() + "'" +
-            ", year='" + getYear() + "'" +
-            ", price='" + getPrice() + "'" +
-            ", page='" + getPage() + "'" +
-            "}";
+                " id='" + getId() + "'" +
+                ", title='" + getTitle() + "'" +
+                ", author='" + getAuthor() + "'" +
+                ", year='" + getYear() + "'" +
+                ", price='" + getPrice() + "'" +
+                ", page='" + getPage() + "'" +
+                "}";
     }
 
 }

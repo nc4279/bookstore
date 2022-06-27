@@ -69,7 +69,6 @@ public class Bookstore {
         this.address = address;
     }
 
-
     public Bookstore id(int id) {
         setId(id);
         return this;
