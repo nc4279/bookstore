@@ -100,13 +100,18 @@ public class BookstoreResource {
     })
     @Operation(summary = "Get all books from user's bookstore", description = "Only login users can access this endpoint, data info depends on user's role")
     public Response getUsersBooks() {
-        Integer bookstoreID = Integer.parseInt(accessToken.getClaim("bookstoreID").toString());
+        
         if (identity.getRoles().contains("user")) {
             String author = accessToken.getClaim("author");
-            String group = accessToken.getClaim("group").toString().substring(3, 9);
+            String group = accessToken.getClaim("group").toString();
+            if(group.length() > 3){
+                group.substring(3, 9);
+            }
             if (Objects.nonNull(author) && Objects.nonNull(group)) {
                 return Response.ok(bookDAO.getBooksForAuthor(author)).build();
-            } else if (Objects.nonNull(bookstoreID)) {
+            }
+            Integer bookstoreID = Integer.parseInt(accessToken.getClaim("bookstoreID").toString()); 
+            if (Objects.nonNull(bookstoreID)) {
                 List<Book> books = bookDAO.getBooksFromBookstore(bookstoreID);
                 List<BookForUserDTO> myBooks = books.stream().map(book -> modelMapper.map(book, BookForUserDTO.class))
                         .collect(Collectors.toList());
@@ -116,7 +121,8 @@ public class BookstoreResource {
             }
             // Log.info("group name -> " + group);
         } else if ((identity.getRoles().contains("admin") || identity.getRoles().contains("superadmin"))
-                && Objects.nonNull(bookstoreID)) {
+                && Objects.nonNull(Integer.parseInt(accessToken.getClaim("bookstoreID").toString()))) {
+                    Integer bookstoreID = Integer.parseInt(accessToken.getClaim("bookstoreID").toString());
             List<Book> books = bookDAO.getBooksFromBookstore(bookstoreID);
             List<BookForAdminDTO> myBooks = books.stream().map(book -> modelMapper.map(book, BookForAdminDTO.class))
                     .collect(Collectors.toList());
@@ -126,29 +132,6 @@ public class BookstoreResource {
         }
 
     }
-
-    // @GET
-    // @Path("mybooks")
-    // @APIResponses(value = {
-    // @APIResponse(responseCode = "200", description = "Success", content =
-    // @Content(mediaType = "application/json", schema = @Schema(implementation =
-    // Book.class))),
-    // @APIResponse(responseCode = "401", description = "Not Authorized", content =
-    // @Content(mediaType = "application/json")),
-    // @APIResponse(responseCode = "403", description = "Not Allowed", content =
-    // @Content(mediaType = "application/json")),
-    // @APIResponse(responseCode = "404", description = "Not Found", content =
-    // @Content(mediaType = "application/json"))
-    // })
-    // @Operation(summary = "Get all books from author in bookstore", description =
-    // "Only login users with group 'writer' can access this endpoint")
-    // public Response getWritersBooks(@QueryParam("bookstoreID") Integer
-    // bookstoreID,
-    // @QueryParam("author") String author) {
-    // //String bookstore = accessToken.getClaim("poslovniPartner");
-    // //identity.getRoles().contains("manager") za role
-    // return Response.ok(bookDAO.getBooksForAuthor(bookstoreID, author)).build();
-    // }
 
     @POST
     @RolesAllowed({ "admin", "superadmin" })
