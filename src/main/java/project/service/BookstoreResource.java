@@ -27,6 +27,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.modelmapper.ModelMapper;
 
+import io.quarkus.logging.Log;
 import io.quarkus.security.identity.SecurityIdentity;
 import project.DAO.BookDAO;
 import project.DAO.BookstoreDAO;
@@ -100,7 +101,7 @@ public class BookstoreResource {
     })
     @Operation(summary = "Get all books from user's bookstore", description = "Only login users can access this endpoint, data info depends on user's role")
     public Response getUsersBooks() {
-        
+        Log.info(accessToken.toString());
         if (identity.getRoles().contains("user")) {
             String author = accessToken.getClaim("author");
             String group = accessToken.getClaim("group").toString();
@@ -117,7 +118,7 @@ public class BookstoreResource {
                         .collect(Collectors.toList());
                 return Response.ok(myBooks).build();
             } else {
-                return Response.status(Status.NOT_FOUND).build();
+                return Response.status(Status.BAD_REQUEST).build();
             }
             // Log.info("group name -> " + group);
         } else if ((identity.getRoles().contains("admin") || identity.getRoles().contains("superadmin"))
@@ -128,7 +129,7 @@ public class BookstoreResource {
                     .collect(Collectors.toList());
             return Response.ok(myBooks).build();
         } else {
-            return Response.status(Status.METHOD_NOT_ALLOWED).build();
+            return Response.status(Status.FORBIDDEN).build();
         }
 
     }
@@ -145,32 +146,25 @@ public class BookstoreResource {
 
     })
     @Operation(summary = "Add book to bookstore", description = "Only login users with roles 'admin' and 'superadmin' can access this endpoint")
-    public Response postBook(@NotNull @Valid NewBookDTO newBookDTO) {
-        // String bookstore = accessToken.getClaim("poslovniPartner");
-        // identity.getRoles().contains("manager") za role
+    public Response postBook(@Valid NewBookDTO newBookDTO) {
+        if(Objects.isNull(newBookDTO))
+        {   
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+
         Integer bookstoreID = Integer.parseInt(accessToken.getClaim("bookstoreID").toString());
         if ((identity.getRoles().contains("admin") || identity.getRoles().contains("superadmin"))
                 && Objects.nonNull(bookstoreID)) {
-
-            // Integer newId =
-            // bookDAO.listAll(Sort.by("id")).get(bookDAO.listAll().size()-1).getId();
             Book book = modelMapper.map(newBookDTO, Book.class);
-            // Log.info(newId);
-            // book.setId(newId+1);
             bookDAO.persist(book);
-            // bookDAO.insertBook(book);
-            // copyDAO.persist();
-            // Log.info(book.toString());
-
             CompositeKey newKey = new CompositeKey(bookstoreID, book.getId());
             Bookstore bookstore = bookstoreDAO.find("id", bookstoreID).firstResult();
             Copy newCopy = new Copy(newKey, bookstore, book, newBookDTO.getCopies(), 0);
-            // Log.info(newCopy);
             copyDAO.merge(newCopy); // zakaj dobim detached entity BOOK?
-            return Response.ok(book).build();
+            return Response.status(Status.CREATED).entity(book).build();
 
         } else {
-            return Response.status(Status.METHOD_NOT_ALLOWED).build();
+            return Response.status(Status.FORBIDDEN).build();
         }
     }
 
@@ -205,11 +199,11 @@ public class BookstoreResource {
                     return Response.status(Status.NO_CONTENT).build();
                 }
             } else {
-                return Response.status(Status.NO_CONTENT).build();
+                return Response.status(Status.BAD_REQUEST).build();
             }
 
         } else {
-            return Response.status(Status.METHOD_NOT_ALLOWED).build();
+            return Response.status(Status.FORBIDDEN).build();
         }
     }
 }
